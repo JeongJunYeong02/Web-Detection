@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="styles.css">
+  <title>Web Forgery Detector</title>
+  <style>
+    /* popup 기본 스타일(간단하게 포함) */
+    body { font-family: Arial, sans-serif; width: 380px; margin: 0; padding: 12px; box-sizing: border-box; }
+    .container { display: flex; flex-direction: column; gap: 12px; }
+    h1 { margin: 0; font-size: 18px; }
+    .status-box { display:flex; align-items:center; gap:8px; padding:8px; background:#f5f5f5; border-radius:6px; }
+    .btn { padding:8px 12px; border: none; border-radius:6px; cursor:pointer; }
+    .btn-primary { background:#1976d2; color:white; }
+    .btn-secondary { background:#eeeeee; color:#111; }
+    .results-section { background:#fff; padding:8px; border-radius:6px; box-shadow:0 1px 3px rgba(0,0,0,0.06); }
+    .risk-score { display:flex; align-items:center; gap:12px; }
+    .score-value { font-size:22px; font-weight:700; }
+    .detail-item { margin-top:6px; display:flex; justify-content:space-between; }
+    #imgResult { padding:8px; background:#fafafa; border-radius:6px; margin-top:6px; min-height:28px; }
+    hr { border: none; border-top: 1px solid #eee; margin: 10px 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🛡️ 웹사이트 위변조 탐지</h1>
+    
+    <div class="status-section">
+      <div id="status" class="status-box">
+        <span class="status-icon">🔍</span>
+        <span id="statusText">분석 대기 중...</span>
+      </div>
+    </div>
+
+    <div class="button-section">
+      <button id="analyzeBtn" class="btn btn-primary">현재 페이지 분석</button>
+    </div>
+
+    <div id="results" class="results-section" style="display: none;">
+      <h3>분석 결과</h3>
+      
+      <div class="risk-score">
+        <div class="score-label">위험도 점수</div>
+        <div id="riskScore" class="score-value">0</div>
+        <div id="riskLevel" class="risk-level"></div>
+      </div>
+
+      <div class="analysis-details">
+        <div class="detail-item">
+          <span class="label">텍스트 유사도:</span>
+          <span id="textSimilarity">-</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">DOM 유사도:</span>
+          <span id="domSimilarity">-</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">의미 기반 유사도:</span>
+          <span id="semanticSimilarity">-</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">URL 유사도:</span>
+          <span id="urlSimilarity">-</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">의심스러운 iframe:</span>
+          <span id="iframeCount">-</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">내부 링크 검사:</span>
+          <span id="internalLinkSummary">-</span>
+        </div>
+      </div>
+
+      <div id="warnings" class="warnings-section">
+        <h4>⚠️ 경고 사항</h4>
+        <ul id="warningsList"></ul>
+      </div>
+
+      <div id="iframeWarnings" class="iframe-warnings" style="display: none;">
+        <h4>🚫 iframe 경고</h4>
+        <ul id="iframeWarningsList"></ul>
+      </div>
+      <div id="linkWarnings" class="link-warnings" style="display: none;">
+        <h4>🔗 내부 링크 경고</h4>
+        <ul id="linkWarningsList"></ul>
+      </div>
+    </div>
+
+    <!-- ---------- 이미지 유사도 분석 섹션 추가 ---------- -->
+    <hr>
+    <h3>🧠 이미지 유사도 분석</h3>
+    <div style="display:flex; gap:8px; align-items:center;">
+      <button id="imgAnalyzeBtn" class="btn btn-secondary">이미지 유사도 계산</button>
+      <!-- (선택) 이미지 업로드 input을 추가하려면 아래 주석 해제 후 popup.js에서 처리하세요 -->
+      <!-- <input type="file" id="imgFile1" accept="image/*"> -->
+      <!-- <input type="file" id="imgFile2" accept="image/*"> -->
+    </div>
+    <div id="imgResult" style="margin-top: 8px; white-space: pre-line;"></div>
+    <!-- --------------------------------------------------- -->
+
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

